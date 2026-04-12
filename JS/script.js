@@ -8,38 +8,38 @@ const galleryData = [
     {
         title: "Kamar Tidur",
         images: [
-            "/Assets/Galeri/kamar-tidur-1.jpg",
-            "/Assets/Galeri/kamar-tidur-2.jpg"
+            "Assets/Galeri/kamar-tidur-1.jpg",
+            "Assets/Galeri/kamar-tidur-2.jpg"
         ],
         isWide: true
     },
     {
         title: "Area Depan",
         images: [
-            "/Assets/Galeri/area-depan-1.jpg",
-            "/Assets/Galeri/area-depan-2.jpg"
+            "Assets/Galeri/area-depan-1.jpg",
+            "Assets/Galeri/area-depan-2.jpg"
         ],
         isWide: false
     },
     {
         title: "Dapur",
         images: [
-            "/Assets/Galeri/dapur.jpg"
+            "Assets/Galeri/dapur.jpg"
         ],
         isWide: false
     },
     {
         title: "Ruang Bersama",
         images: [
-            "/Assets/Galeri/ruang-bersama-2.jpg"
+            "Assets/Galeri/ruang-bersama-2.jpg"
         ],
         isWide: false
     },
     {
         title: "Tampak Luar Bangunan",
         images: [
-            "/Assets/Galeri/luar-bangunan-1.jpg",
-            "/Assets/Galeri/luar-bangunan-2.jpg"
+            "Assets/Galeri/luar-bangunan-1.jpg",
+            "Assets/Galeri/luar-bangunan-2.jpg"
         ],
         isWide: false
     }

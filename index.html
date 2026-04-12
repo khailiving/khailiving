@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khai Living Syariah</title>
+    <meta name="description" content="Khai Living Syariah hadir sebagai tempat tinggal eksklusif yang dirancang khusus bagi Anda yang mendambakan ketenangan, privasi, dan lingkungan yang sesuai dengan nilai-nilai Islam di jantung kota Bandung">
+    <meta name="keywords" content="khai living syariah, kost syariah, kost syariat islam, kost murah, hunian nuansa jepang">
+        
+    <link rel="icon" href="Assets/icon-1b.png" type="image/png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandDark: '#3c2415', 
+                        brandLight: '#fdfaf6', 
+                        surface: '#f6f1eb', 
+                        accentGold: '#bd9a68', 
+                        mapCard: '#e3dacd' 
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'], 
+                        lora: ['Lora', 'serif'], 
+                        serif: ['Playfair Display', 'serif'] 
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Hover & Animations */
+        .card-hover { transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s ease; }
+        .card-hover:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(64,60,57,0.06); }
+        
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        /* Menyembunyikan scrollbar bawaan */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Animasi indikator dot slider */
+        .dot-active { background-color: #bd9a68; width: 16px; border-radius: 999px; }
+        .dot-inactive { background-color: rgba(255,255,255,0.6); width: 6px; border-radius: 999px; }
+        .dot-transition { transition: all 0.3s ease; }
+    </style>
+</head>
+<body class="font-sans bg-brandLight text-brandDark antialiased overflow-x-hidden">
+
+    <nav class="bg-brandLight/90 backdrop-blur-md fixed top-0 w-full z-40 border-b border-brandDark/5 transition-all duration-300" id="main-nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-[80px] md:h-[100px] items-center">
+                
+                <a href="#home" class="flex-shrink-0 flex items-center group z-50">
+                    <img src="/Assets/logo-khai-living-2.png" alt="Khai Living Syariah" class="h-[50px] md:h-[60px] w-auto object-contain transition-transform group-hover:scale-105">
+                </a>
+                
+                <div class="hidden md:flex space-x-6 lg:space-x-8 items-center font-serif">
+                    <a href="#home" class="font-semibold text-brandDark hover:text-accentGold transition text-xs tracking-wide">Home</a>
+                    <a href="#fasilitas" class="font-semibold text-brandDark hover:text-accentGold transition text-xs tracking-wide">Fasilitas</a>
+                    <a href="#paket-sewa" class="font-semibold text-brandDark hover:text-accentGold transition text-xs tracking-wide">Pesan</a>
+                    <a href="#kontak" class="font-semibold text-brandDark hover:text-accentGold transition text-xs tracking-wide">Kontak</a>
+                    
+                    <div class="flex items-center space-x-4 pl-4 lg:pl-6 border-l border-brandDark/20">
+                        <a href="https://instagram.com/khai.living" target="_blank" class="text-brandDark hover:text-accentGold transition" aria-label="Instagram">
+                            <i class="fa-brands fa-instagram text-lg"></i>
+                        </a>
+                        <a href="https://wa.me/6281111199706" target="_blank" class="text-brandDark hover:text-accentGold transition" aria-label="WhatsApp">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="md:hidden flex items-center z-50">
+                    <button id="mobile-menu-btn" class="text-brandDark focus:outline-none p-1.5 rounded-xl transition-colors">
+                        <i data-lucide="menu" class="w-5 h-5 transition-all duration-300" id="icon-menu"></i>
+                        <i data-lucide="x" class="w-5 h-5 transition-all duration-300 hidden" id="icon-close"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div id="mobile-menu-fullscreen" class="md:hidden fixed inset-y-0 right-0 z-30 w-full h-screen bg-brandLight transform translate-x-full transition-transform duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] flex flex-col items-center justify-center font-serif pt-12">
+        <div class="flex flex-col items-center space-y-6 w-full px-6">
+            <a href="#home" class="mobile-link text-lg font-bold text-brandDark hover:text-accentGold transition tracking-wide transform translate-y-8 opacity-0 transition-all duration-500 delay-100">Home</a>
+            <a href="#fasilitas" class="mobile-link text-lg font-bold text-brandDark hover:text-accentGold transition tracking-wide transform translate-y-8 opacity-0 transition-all duration-500 delay-150">Fasilitas</a>
+            <a href="#paket-sewa" class="mobile-link text-lg font-bold text-brandDark hover:text-accentGold transition tracking-wide transform translate-y-8 opacity-0 transition-all duration-500 delay-200">Pesan</a>
+            <a href="#kontak" class="mobile-link text-lg font-bold text-accentGold transition tracking-wide transform translate-y-8 opacity-0 transition-all duration-500 delay-250">Kontak</a>
+        </div>
+        
+        <div class="mt-10 flex flex-col items-center opacity-0 transform translate-y-8 transition-all duration-500 delay-300" id="mobile-menu-footer">
+            <div class="flex space-x-6 items-center">
+                <a href="https://instagram.com/khai.living" target="_blank" class="text-brandDark hover:text-accentGold transition" aria-label="Instagram">
+                    <i class="fa-brands fa-instagram text-xl"></i>
+                </a>
+                <a href="https://wa.me/6281111199706" target="_blank" class="text-brandDark hover:text-accentGold transition" aria-label="WhatsApp">
+                    <i class="fa-brands fa-whatsapp text-xl"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <section id="home" class="relative pt-28 md:pt-32 pb-10 md:pb-12 px-4 min-h-[60vh] md:min-h-[70vh] flex flex-col justify-center items-center scroll-mt-14 md:scroll-mt-16 overflow-hidden bg-brandLight">
+        <div class="absolute inset-0 z-0 opacity-[0.35] pointer-events-none flex items-center justify-center">
+            <div class="w-[200px] md:w-[250px] h-[200px] md:h-[250px] border border-accentGold/30 rounded-full absolute blur-[1px]"></div>
+            <div class="w-[350px] md:w-[450px] h-[350px] md:h-[450px] border border-accentGold/20 rounded-full absolute blur-[1px]"></div>
+            <div class="w-[500px] md:w-[650px] h-[500px] md:h-[650px] border border-accentGold/10 rounded-full absolute blur-[1.5px]"></div>
+            <div class="w-[700px] md:w-[900px] h-[700px] md:h-[900px] border border-accentGold/5 rounded-full absolute blur-[2px]"></div>
+        </div>
+
+        <div class="max-w-2xl mx-auto flex flex-col items-center text-center w-full fade-in relative z-10 mt-6 md:mt-10">
+            <p class="text-[8px] md:text-[10px] tracking-[0.3em] text-accentGold uppercase font-sans font-bold mb-4 md:mb-5">
+                BANDUNG · CO-LIVING · SYARIAH
+            </p>
+            
+            <h1 class="font-serif text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold leading-tight text-brandDark mb-4 md:mb-5">
+                Kosan Exclusive dan<br>Syariah di Bandung
+            </h1>
+
+            <div class="h-px w-10 md:w-12 bg-gradient-to-r from-transparent via-accentGold/50 to-transparent mx-auto mb-4 md:mb-5"></div>
+            
+            <p class="text-[11px] md:text-sm text-gray-500 leading-relaxed max-w-lg mx-auto mb-6 md:mb-8 font-sans px-4">
+                Hunian premium bernuansa Jepang yang tenang, bersih, dan penuh keberkahan untuk Anda.
+            </p>
+            
+            <a href="https://wa.me/6281111199706" target="_blank" class="inline-flex items-center justify-center bg-accentGold text-white px-5 md:px-6 py-2.5 md:py-3 rounded-full font-sans font-semibold hover:opacity-90 transition shadow-lg group text-[10px] md:text-[11px] tracking-wide">
+                <i class="fa-brands fa-whatsapp text-sm md:text-sm mr-2 group-hover:scale-110 transition-transform"></i>
+                Hubungi WhatsApp Kami
+            </a>
+        </div>
+    </section>
+
+    <section class="py-12 md:py-16 bg-white px-4">
+        <div class="max-w-3xl mx-auto text-center fade-in">
+            <p class="text-[8px] md:text-[10px] tracking-[0.3em] text-accentGold uppercase font-sans font-bold mb-3">
+                TENTANG KAMI
+            </p>
+            <h2 class="font-serif text-lg md:text-3xl lg:text-4xl font-bold text-brandDark mb-4 md:mb-5">
+                Konsep Hunian Kami
+            </h2>
+            <div class="h-[2px] w-10 md:w-12 bg-gradient-to-r from-transparent via-accentGold/50 to-transparent mx-auto mb-4 md:mb-5"></div>
+            <p class="text-[11px] md:text-sm text-gray-500 leading-relaxed font-sans max-w-2xl mx-auto">
+                Hunian nyaman bernuansa Jepang — tenang, bersih, dan fokus — dengan prinsip Syariah untuk keberkahan hidup. Khai Living Syariah hadir sebagai tempat tinggal eksklusif yang dirancang khusus bagi Anda yang mendambakan ketenangan, privasi, dan lingkungan yang sesuai dengan nilai-nilai Islam di jantung kota Bandung.
+            </p>
+        </div>
+    </section>
+
+    <section id="fasilitas" class="py-12 md:py-16 bg-surface px-4 scroll-mt-14 md:scroll-mt-16">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-10 md:mb-12 fade-in">
+                <p class="text-[8px] md:text-[10px] tracking-[0.3em] text-accentGold uppercase font-sans font-bold mb-3">
+                    FASILITAS
+                </p>
+                <h2 class="text-lg md:text-3xl lg:text-4xl font-serif font-bold text-brandDark mb-4 md:mb-5">
+                    Semua yang Anda Butuhkan
+                </h2>
+                <div class="h-[2px] w-10 md:w-12 bg-gradient-to-r from-transparent via-accentGold/50 to-transparent mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-3 md:gap-4 fade-in">
+                <div class="bg-white rounded-2xl md:rounded-[24px] p-4 md:p-5 text-center shadow-sm card-hover border border-gray-100">
+                    <div class="w-8 h-8 md:w-10 md:h-10 bg-surface rounded-full mx-auto flex items-center justify-center mb-2.5 md:mb-3">
+                        <i data-lucide="bed-double" class="w-3.5 h-3.5 md:w-4 md:h-4 text-accentGold"></i>
+                    </div>
+                    <h3 class="font-serif text-sm md:text-base font-bold text-brandDark mb-1 md:mb-1.5">Kasur</h3>
+                    <p class="text-[9px] md:text-[11px] text-gray-500 font-sans leading-relaxed">Kasur premium tebal & nyaman</p>
+                </div>
+
+                <div class="bg-white rounded-2xl md:rounded-[24px] p-4 md:p-5 text-center shadow-sm card-hover border border-gray-100">
+                    <div class="w-8 h-8 md:w-10 md:h-10 bg-surface rounded-full mx-auto flex items-center justify-center mb-2.5 md:mb-3">
+                        <i data-lucide="archive" class="w-3.5 h-3.5 md:w-4 md:h-4 text-accentGold"></i>
+                    </div>
+                    <h3 class="font-serif text-sm md:text-base font-bold text-brandDark mb-1 md:mb-1.5">Lemari</h3>
+                    <p class="text-[9px] md:text-[11px] text-gray-500 font-sans leading-relaxed">Lemari pakaian luas minimalis</p>
+                </div>
+
+                <div class="bg-white rounded-2xl md:rounded-[24px] p-4 md:p-5 text-center shadow-sm card-hover border border-gray-100">
+                    <div class="w-8 h-8 md:w-10 md:h-10 bg-surface rounded-full mx-auto flex items-center justify-center mb-2.5 md:mb-3">
+                        <i data-lucide="tv" class="w-3.5 h-3.5 md:w-4 md:h-4 text-accentGold"></i>
+                    </div>
+                    <h3 class="font-serif text-sm md:text-base font-bold text-brandDark mb-1 md:mb-1.5">Smart TV</h3>
+                    <p class="text-[9px] md:text-[11px] text-gray-500 font-sans leading-relaxed">Akses streaming favorit Anda</p>
+                </div>
+
+                <div class="bg-white rounded-2xl md:rounded-[24px] p-4 md:p-5 text-center shadow-sm card-hover border border-gray-100">
+                    <div class="w-8 h-8 md:w-10 md:h-10 bg-surface rounded-full mx-auto flex items-center justify-center mb-2.5 md:mb-3">
+                        <i data-lucide="snowflake" class="w-3.5 h-3.5 md:w-4 md:h-4 text-accentGold"></i>
+                    </div>
+                    <h3 class="font-serif text-sm md:text-base font-bold text-brandDark mb-1 md:mb-1.5">AC</h3>
+                    <p class="text-[9px] md:text-[11px] text-gray-500 font-sans leading-relaxed">Ruangan sejuk & nyaman</p>
+                </div>
+
+                <div class="bg-white rounded-2xl md:rounded-[24px] p-4 md:p-5 text-center shadow-sm card-hover border border-gray-100">
+                    <div class="w-8 h-8 md:w-10 md:h-10 bg-surface rounded-full mx-auto flex items-center justify-center mb-2.5 md:mb-3">
+                        <i data-lucide="wifi" class="w-3.5 h-3.5 md:w-4 md:h-4 text-accentGold"></i>
+                    </div>
+                    <h3 class="font-serif text-sm md:text-base font-bold text-brandDark mb-1 md:mb-1.5">Wifi</h3>
+                    <p class="text-[9px] md:text-[11px] text-gray-500 font-sans leading-relaxed">Internet cepat & stabil</p>
+                </div>
+
+                <div class="bg-white rounded-2xl md:rounded-[24px] p-4 md:p-5 text-center shadow-sm card-hover border border-gray-100">
+                    <div class="w-8 h-8 md:w-10 md:h-10 bg-surface rounded-full mx-auto flex items-center justify-center mb-2.5 md:mb-3">
+                        <i data-lucide="droplets" class="w-3.5 h-3.5 md:w-4 md:h-4 text-accentGold"></i>
+                    </div>
+                    <h3 class="font-serif text-sm md:text-base font-bold text-brandDark mb-1 md:mb-1.5">Water Heater</h3>
+                    <p class="text-[9px] md:text-[11px] text-gray-500 font-sans leading-relaxed">Air hangat setiap saat</p>
+                </div>
+
+                <div class="bg-white rounded-2xl md:rounded-[24px] p-4 md:p-5 text-center shadow-sm card-hover border border-gray-100">
+                    <div class="w-8 h-8 md:w-10 md:h-10 bg-surface rounded-full mx-auto flex items-center justify-center mb-2.5 md:mb-3">
+                        <i data-lucide="shirt" class="w-3.5 h-3.5 md:w-4 md:h-4 text-accentGold"></i>
+                    </div>
+                    <h3 class="font-serif text-sm md:text-base font-bold text-brandDark mb-1 md:mb-1.5">Free Laundry</h3>
+                    <p class="text-[9px] md:text-[11px] text-gray-500 font-sans leading-relaxed">Layanan laundry gratis</p>
+                </div>
+
+                <div class="bg-white rounded-2xl md:rounded-[24px] p-4 md:p-5 text-center shadow-sm card-hover border border-gray-100">
+                    <div class="w-8 h-8 md:w-10 md:h-10 bg-surface rounded-full mx-auto flex items-center justify-center mb-2.5 md:mb-3">
+                        <i data-lucide="utensils" class="w-3.5 h-3.5 md:w-4 md:h-4 text-accentGold"></i>
+                    </div>
+                    <h3 class="font-serif text-sm md:text-base font-bold text-brandDark mb-1 md:mb-1.5">Pantry Modern</h3>
+                    <p class="text-[9px] md:text-[11px] text-gray-500 font-sans leading-relaxed">Kulkas, kompor, microwave</p>
+                </div>
+
+                <div class="bg-white rounded-2xl md:rounded-[24px] p-4 md:p-5 text-center shadow-sm card-hover border border-gray-100 sm:col-span-1 col-span-2">
+                    <div class="w-8 h-8 md:w-10 md:h-10 bg-surface rounded-full mx-auto flex items-center justify-center mb-2.5 md:mb-3">
+                        <i data-lucide="sun" class="w-3.5 h-3.5 md:w-4 md:h-4 text-accentGold"></i>
+                    </div>
+                    <h3 class="font-serif text-sm md:text-base font-bold text-brandDark mb-1 md:mb-1.5">Rooftop</h3>
+                    <p class="text-[9px] md:text-[11px] text-gray-500 font-sans leading-relaxed">Area santai & berkumpul</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 md:py-16 bg-brandLight px-4">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-10 md:mb-12 fade-in">
+                <p class="text-[8px] md:text-[10px] tracking-[0.3em] text-accentGold uppercase font-sans font-bold mb-3">
+                    LANDASAN KAMI
+                </p>
+                <h2 class="text-lg md:text-3xl font-serif font-bold text-brandDark mb-4 md:mb-5">Nilai Inti</h2>
+                <div class="h-[2px] w-10 md:w-12 bg-gradient-to-r from-transparent via-accentGold/50 to-transparent mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+                <div class="p-4 md:p-5 bg-white shadow-sm border border-gray-100 rounded-[20px] md:rounded-[24px] card-hover fade-in text-center">
+                    <h3 class="font-serif text-sm md:text-lg font-bold mb-1 md:mb-1.5 text-brandDark">Simplicity</h3>
+                    <p class="text-gray-500 text-[9px] md:text-[11px] leading-relaxed font-sans">Ruang fungsional & bersih.</p>
+                </div>
+
+                <div class="p-4 md:p-5 bg-white shadow-sm border border-gray-100 rounded-[20px] md:rounded-[24px] card-hover fade-in text-center" style="transition-delay: 100ms;">
+                    <h3 class="font-serif text-sm md:text-lg font-bold mb-1 md:mb-1.5 text-brandDark">Syariah</h3>
+                    <p class="text-gray-500 text-[9px] md:text-[11px] leading-relaxed font-sans">Berlandaskan nilai Islam.</p>
+                </div>
+
+                <div class="p-4 md:p-5 bg-white shadow-sm border border-gray-100 rounded-[20px] md:rounded-[24px] card-hover fade-in text-center" style="transition-delay: 200ms;">
+                    <h3 class="font-serif text-sm md:text-lg font-bold mb-1 md:mb-1.5 text-brandDark">Serenity</h3>
+                    <p class="text-gray-500 text-[9px] md:text-[11px] leading-relaxed font-sans">Nyaman dan menenangkan.</p>
+                </div>
+
+                <div class="p-4 md:p-5 bg-white shadow-sm border border-gray-100 rounded-[20px] md:rounded-[24px] card-hover fade-in text-center" style="transition-delay: 300ms;">
+                    <h3 class="font-serif text-sm md:text-lg font-bold mb-1 md:mb-1.5 text-brandDark">Hope</h3>
+                    <p class="text-gray-500 text-[9px] md:text-[11px] leading-relaxed font-sans">Awal kehidupan yang baik.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-12 md:py-16 bg-white px-4">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-10 md:mb-12 fade-in">
+                <p class="text-[8px] md:text-[10px] tracking-[0.3em] text-accentGold uppercase font-sans font-bold mb-3">
+                    GALERI
+                </p>
+                <h2 class="text-lg md:text-3xl lg:text-4xl font-serif font-bold text-brandDark mb-4 md:mb-5">Suasana Hunian</h2>
+                <div class="h-[2px] w-10 md:w-12 bg-gradient-to-r from-transparent via-accentGold/50 to-transparent mx-auto mb-4 md:mb-5"></div>
+                <p class="text-gray-500 font-sans max-w-xl mx-auto text-[11px] md:text-sm">Suasana tenang dan desain estetik di Khai Living Syariah.</p>
+            </div>
+            
+            <div id="galeri-container" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 fade-in">
+            </div>
+        </div>
+    </section>
+
+    <section id="paket-sewa" class="py-16 md:py-24 bg-surface px-4 scroll-mt-14 md:scroll-mt-20 border-t border-brandDark/5">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-10 md:mb-16 fade-in">
+                <p class="text-[8px] md:text-[10px] tracking-[0.3em] text-accentGold uppercase font-sans font-bold mb-3 md:mb-4">
+                    PAKET
+                </p>
+                <h2 class="text-lg md:text-4xl lg:text-5xl font-serif font-bold text-brandDark mb-4 md:mb-6">Pilihan Paket Sewa</h2>
+                <div class="h-[2px] w-10 md:w-16 bg-gradient-to-r from-transparent via-accentGold/50 to-transparent mx-auto"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 md:gap-6 items-center fade-in">
+                
+                <div class="bg-white rounded-2xl md:rounded-[32px] p-5 md:p-8 shadow-sm border border-gray-100 card-hover flex flex-col h-full">
+                    <div class="text-center mb-4 md:mb-6">
+                        <h3 class="font-serif text-sm md:text-xl font-bold text-brandDark mb-1 md:mb-2">Regular Single</h3>
+                        <p class="text-[8px] md:text-[10px] font-sans text-gray-400 mb-4 md:mb-6">Khai Living Syariah</p>
+                        <h4 class="font-serif text-lg md:text-4xl font-bold text-accentGold mb-4 md:mb-6">1.4 JT<span class="text-[8px] md:text-[10px] font-sans font-normal text-gray-400"> /bulan</span></h4>
+                        <div class="border-b border-gray-100 w-full"></div>
+                    </div>
+                    <ul class="space-y-2 md:space-y-4 mb-6 md:mb-8 flex-1 font-sans px-1">
+                        <li class="flex items-start"><i data-lucide="check" class="w-3 h-3 md:w-4 md:h-4 text-accentGold mr-2 mt-0.5 flex-shrink-0"></i><span class="text-[10px] md:text-xs text-gray-500 leading-relaxed">Kamar pribadi kasur premium</span></li>
+                        <li class="flex items-start"><i data-lucide="check" class="w-3 h-3 md:w-4 md:h-4 text-accentGold mr-2 mt-0.5 flex-shrink-0"></i><span class="text-[10px] md:text-xs text-gray-500 leading-relaxed">AC & Smart TV</span></li>
+                        <li class="flex items-start"><i data-lucide="check" class="w-3 h-3 md:w-4 md:h-4 text-accentGold mr-2 mt-0.5 flex-shrink-0"></i><span class="text-[10px] md:text-xs text-gray-500 leading-relaxed">Wifi unlimited</span></li>
+                        <li class="flex items-start"><i data-lucide="check" class="w-3 h-3 md:w-4 md:h-4 text-accentGold mr-2 mt-0.5 flex-shrink-0"></i><span class="text-[10px] md:text-xs text-gray-500 leading-relaxed">Laundry gratis 2x/minggu</span></li>
+                        <li class="flex items-start"><i data-lucide="check" class="w-3 h-3 md:w-4 md:h-4 text-accentGold mr-2 mt-0.5 flex-shrink-0"></i><span class="text-[10px] md:text-xs text-gray-500 leading-relaxed">Akses area bersama</span></li>
+                    </ul>
+                    <a href="#pesan" class="block w-full py-2.5 md:py-3.5 rounded-full text-center font-sans font-semibold text-[10px] md:text-xs bg-surface text-accentGold hover:brightness-95 transition">Pilih Paket</a>
+                </div>
+
+                <div class="bg-white rounded-2xl md:rounded-[32px] p-5 md:p-8 shadow-xl border-2 border-accentGold card-hover flex flex-col h-full relative transform sm:-translate-y-4 z-10">
+                    <div class="absolute top-0 right-3 md:right-6 bg-accentGold text-white text-[7px] md:text-[9px] font-sans font-bold uppercase tracking-wider px-2 md:px-3 py-1 md:py-1.5 rounded-b-md md:rounded-b-lg">
+                        Populer
+                    </div>
+                    <div class="text-center mb-4 md:mb-6 mt-2">
+                        <h3 class="font-serif text-sm md:text-xl font-bold text-brandDark mb-1 md:mb-2">Premium Single</h3>
+                        <p class="text-[8px] md:text-[10px] font-sans text-gray-400 mb-4 md:mb-6">Khai Living Syariah</p>
+                        <h4 class="font-serif text-lg md:text-4xl font-bold text-accentGold mb-4 md:mb-6">1.8 JT<span class="text-[8px] md:text-[10px] font-sans font-normal text-gray-400"> /bulan</span></h4>
+                        <div class="border-b border-gray-100 w-full"></div>
+                    </div>
+                    <ul class="space-y-2 md:space-y-4 mb-6 md:mb-8 flex-1 font-sans px-1">
+                        <li class="flex items-start"><i data-lucide="check" class="w-3 h-3 md:w-4 md:h-4 text-accentGold mr-2 mt-0.5 flex-shrink-0"></i><span class="text-[10px] md:text-xs text-gray-500 leading-relaxed">Kamar luas kasur super premium</span></li>
+                        <li class="flex items-start"><i data-lucide="check" class="w-3 h-3 md:w-4 md:h-4 text-accentGold mr-2 mt-0.5 flex-shrink-0"></i><span class="text-[10px] md:text-xs text-gray-500 leading-relaxed">AC dual + Smart TV besar</span></li>
+                        <li class="flex items-start"><i data-lucide="check" class="w-3 h-3 md:w-4 md:h-4 text-accentGold mr-2 mt-0.5 flex-shrink-0"></i><span class="text-[10px] md:text-xs text-gray-500 leading-relaxed">Wifi unlimited prioritas</span></li>
+                        <li class="flex items-start"><i data-lucide="check" class="w-3 h-3 md:w-4 md:h-4 text-accentGold mr-2 mt-0.5 flex-shrink-0"></i><span class="text-[10px] md:text-xs text-gray-500 leading-relaxed">Laundry gratis unlimited</span></li>
+                        <li class="flex items-start"><i data-lucide="check" class="w-3 h-3 md:w-4 md:h-4 text-accentGold mr-2 mt-0.5 flex-shrink-0"></i><span class="text-[10px] md:text-xs text-gray-500 leading-relaxed">Akses VIP semua fasilitas</span></li>
+                    </ul>
+                    <a href="#pesan" class="block w-full py-2.5 md:py-3.5 rounded-full text-center font-sans font-semibold text-[10px] md:text-xs bg-accentGold text-white hover:opacity-90 transition shadow-md">Pilih Paket</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pesan" class="py-16 md:py-24 bg-brandLight px-4 scroll-mt-14 md:scroll-mt-20">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-10 md:mb-14 fade-in">
+                <p class="text-[8px] md:text-[10px] tracking-[0.3em] text-accentGold uppercase font-sans font-bold mb-3 md:mb-4">
+                    PEMESANAN
+                </p>
+                <h2 class="text-xl md:text-4xl font-serif font-bold text-brandDark mb-4 md:mb-6">
+                    Dua Cara Mudah Memesan
+                </h2>
+                <div class="h-[2px] w-10 md:w-16 bg-gradient-to-r from-transparent via-accentGold/50 to-transparent mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 fade-in">
+                <div class="bg-white rounded-2xl md:rounded-3xl p-6 md:p-10 text-center shadow-sm border border-gray-100 card-hover flex flex-col h-full">
+                    <div class="w-10 h-10 md:w-14 md:h-14 bg-surface rounded-full mx-auto flex items-center justify-center mb-4 md:mb-6">
+                        <i data-lucide="home" class="w-4 h-4 md:w-6 md:h-6 text-accentGold"></i>
+                    </div>
+                    <h3 class="font-serif text-base md:text-2xl font-bold text-brandDark mb-2 md:mb-4">Pesan via Mami Kos</h3>
+                    <p class="text-[11px] md:text-xs text-gray-500 font-sans leading-relaxed mb-6 md:mb-8 flex-1">Temukan listing kami di aplikasi Mami Kos untuk proses pemesanan yang mudah dan terpercaya.</p>
+                    
+                    <a href="https://mamikos.com/room/kost-kota-bandung-kost-putri-eksklusif-kost-khai-living-syariah-premium-single-buahbatu-bandung" class="block w-full py-3 md:py-4 rounded-xl md:rounded-2xl text-center bg-surface text-gray-500 font-sans text-[10px] md:text-xs transition hover:text-accentGold">
+                        <span class="block mb-1">Cari di Mami Kos:</span>
+                        <span class="font-bold text-accentGold text-[11px] md:text-sm">Khai Living Syariah</span>
+                    </a>
+                </div>
+
+                <div class="bg-white rounded-2xl md:rounded-3xl p-6 md:p-10 text-center shadow-sm border border-gray-100 card-hover flex flex-col h-full">
+                    <div class="w-10 h-10 md:w-14 md:h-14 bg-surface rounded-full mx-auto flex items-center justify-center mb-4 md:mb-6">
+                        <i class="fa-brands fa-whatsapp text-lg md:text-2xl text-accentGold"></i>
+                    </div>
+                    <h3 class="font-serif text-base md:text-2xl font-bold text-brandDark mb-2 md:mb-4">Pesan via WhatsApp</h3>
+                    <p class="text-[11px] md:text-xs text-gray-500 font-sans leading-relaxed mb-6 md:mb-8 flex-1">Hubungi kami langsung via WhatsApp untuk tanya jawab dan reservasi kamar.</p>
+                    
+                    <a href="https://wa.me/6281111199706" target="_blank" class="block w-full py-3 md:py-4 rounded-full text-center bg-accentGold text-white font-sans font-medium text-[10px] md:text-sm transition hover:opacity-90 shadow-md">
+                        Chat WhatsApp Sekarang
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 md:py-24 bg-white px-4 border-y border-brandDark/5 scroll-mt-14 md:scroll-mt-20">
+        <div class="max-w-4xl mx-auto fade-in">
+            <div class="text-center mb-10 md:mb-14">
+                <p class="text-[8px] md:text-[10px] tracking-[0.3em] text-accentGold uppercase font-sans font-bold mb-3 md:mb-4">
+                    FAQ
+                </p>
+                <h2 class="text-lg md:text-4xl font-serif font-bold text-brandDark mb-4 md:mb-6">Pertanyaan Umum</h2>
+                <div class="h-[2px] w-10 md:w-16 bg-gradient-to-r from-transparent via-accentGold/50 to-transparent mx-auto"></div>
+            </div>
+
+            <div class="space-y-3 md:space-y-6 font-sans">
+                <div class="bg-brandLight rounded-2xl md:rounded-[32px] shadow-sm border border-brandDark/5 overflow-hidden card-hover">
+                    <button class="faq-btn w-full flex justify-between items-center p-4 md:p-8 text-brandDark hover:bg-[#fcfbfa] transition-colors focus:outline-none group">
+                        <span class="text-left font-serif font-bold text-xs md:text-xl">Apa yang dimaksud dengan hunian berbasis Syariah di sini?</span>
+                        <div class="w-8 h-8 md:w-12 md:h-12 rounded-full bg-white flex items-center justify-center flex-shrink-0 ml-3 md:ml-4 transition-colors duration-300">
+                            <i data-lucide="chevron-down" class="w-3 h-3 md:w-5 md:h-5 text-accentGold transition-transform duration-300 ease-in-out transform"></i>
+                        </div>
+                    </button>
+                    <div class="faq-content grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-in-out">
+                        <div class="overflow-hidden">
+                            <div class="px-4 md:px-8 pb-4 md:pb-8 text-gray-500 text-[10px] md:text-sm leading-relaxed font-sans border-t border-brandDark/5 pt-4 md:pt-0">
+                                Hunian Syariah berarti seluruh tata tertib lingkungan dikelola sesuai dengan syariat Islam demi menjaga kenyamanan, ketenangan, dan lingkungan yang aman.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-brandLight rounded-2xl md:rounded-[32px] shadow-sm border border-brandDark/5 overflow-hidden card-hover">
+                    <button class="faq-btn w-full flex justify-between items-center p-4 md:p-8 text-brandDark hover:bg-[#fcfbfa] transition-colors focus:outline-none group">
+                        <span class="text-left font-serif font-bold text-xs md:text-xl">Apa syarat dan ketentuan untuk menyewa?</span>
+                        <div class="w-8 h-8 md:w-12 md:h-12 rounded-full bg-white flex items-center justify-center flex-shrink-0 ml-3 md:ml-4 transition-colors duration-300">
+                            <i data-lucide="chevron-down" class="w-3 h-3 md:w-5 md:h-5 text-accentGold transition-transform duration-300 ease-in-out transform"></i>
+                        </div>
+                    </button>
+                    <div class="faq-content grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-in-out">
+                        <div class="overflow-hidden">
+                            <div class="px-4 md:px-8 pb-4 md:pb-8 text-gray-500 text-[10px] md:text-sm leading-relaxed font-sans border-t border-brandDark/5 pt-4 md:pt-0">
+                                Persyaratan dasar: identitas valid, referensi karakter, dan komitmen menjaga lingkungan Syariah. Kami juga memerlukan deposit dan garansi uang muka. Hubungi kami untuk detail lengkap.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-brandLight rounded-2xl md:rounded-[32px] shadow-sm border border-brandDark/5 overflow-hidden card-hover">
+                    <button class="faq-btn w-full flex justify-between items-center p-4 md:p-8 text-brandDark hover:bg-[#fcfbfa] transition-colors focus:outline-none group">
+                        <span class="text-left font-serif font-bold text-xs md:text-xl">Apakah harga sewa sudah termasuk biaya listrik dan air?</span>
+                        <div class="w-8 h-8 md:w-12 md:h-12 rounded-full bg-white flex items-center justify-center flex-shrink-0 ml-3 md:ml-4 transition-colors duration-300">
+                            <i data-lucide="chevron-down" class="w-3 h-3 md:w-5 md:h-5 text-accentGold transition-transform duration-300 ease-in-out transform"></i>
+                        </div>
+                    </button>
+                    <div class="faq-content grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-in-out">
+                        <div class="overflow-hidden">
+                            <div class="px-4 md:px-8 pb-4 md:pb-8 text-gray-500 text-[10px] md:text-sm leading-relaxed font-sans border-t border-brandDark/5 pt-4 md:pt-0">
+                                Harga sewa yang tertera sudah mencakup biaya air bersih dan fasilitas kebersihan umum. Untuk listrik, setiap kamar menggunakan sistem token mandiri sesuai dengan pemakaian masing-masing penghuni.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-brandLight rounded-2xl md:rounded-[32px] shadow-sm border border-brandDark/5 overflow-hidden card-hover">
+                    <button class="faq-btn w-full flex justify-between items-center p-4 md:p-8 text-brandDark hover:bg-[#fcfbfa] transition-colors focus:outline-none group">
+                        <span class="text-left font-serif font-bold text-xs md:text-xl">Apakah tersedia jam malam bagi penghuni?</span>
+                        <div class="w-8 h-8 md:w-12 md:h-12 rounded-full bg-white flex items-center justify-center flex-shrink-0 ml-3 md:ml-4 transition-colors duration-300">
+                            <i data-lucide="chevron-down" class="w-3 h-3 md:w-5 md:h-5 text-accentGold transition-transform duration-300 ease-in-out transform"></i>
+                        </div>
+                    </button>
+                    <div class="faq-content grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 ease-in-out">
+                        <div class="overflow-hidden">
+                            <div class="px-4 md:px-8 pb-4 md:pb-8 text-gray-500 text-[10px] md:text-sm leading-relaxed font-sans border-t border-brandDark/5 pt-4 md:pt-0">
+                                Khai Living memberikan akses kunci gerbang utama untuk setiap penghuni (akses 24 jam). Namun, demi menjaga etika ketenangan lingkungan, kami membatasi aktivitas bising atau bertamu di atas jam 22.00 WIB.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimoni" class="py-16 md:py-24 bg-surface px-4 scroll-mt-14 md:scroll-mt-20">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-10 md:mb-16 fade-in">
+                <p class="text-[8px] md:text-[10px] tracking-[0.3em] text-accentGold uppercase font-sans font-bold mb-3 md:mb-4">
+                    TESTIMONI
+                </p>
+                <h2 class="text-lg md:text-4xl lg:text-5xl font-serif font-bold text-brandDark mb-4 md:mb-6">Cerita Penghuni</h2>
+                <div class="h-[2px] w-10 md:w-16 bg-gradient-to-r from-transparent via-accentGold/50 to-transparent mx-auto"></div>
+            </div>
+            
+            <div class="relative overflow-hidden w-full fade-in pb-4 md:pb-6" id="testimoni-slider-container">
+                <div class="flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory no-scrollbar transition-transform" id="testimoni-slider">
+                    
+                    <div class="testimoni-card w-full sm:w-[calc(50%-8px)] md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex-shrink-0 snap-center p-6 md:p-8 bg-white rounded-2xl md:rounded-3xl border border-gray-100 shadow-sm card-hover flex flex-col items-center text-center">
+                        <div class="w-10 h-10 md:w-12 md:h-12 bg-brandLight rounded-full mx-auto flex items-center justify-center mb-4 md:mb-5">
+                            <i data-lucide="quote" class="w-4 h-4 md:w-5 md:h-5 text-accentGold"></i>
+                        </div>
+                        <div class="flex gap-1 md:gap-1.5 mb-4 md:mb-5 justify-center">
+                            <i class="fa-solid fa-star text-accentGold text-[9px] md:text-[11px]"></i>
+                            <i class="fa-solid fa-star text-accentGold text-[9px] md:text-[11px]"></i>
+                            <i class="fa-solid fa-star text-accentGold text-[9px] md:text-[11px]"></i>
+                            <i class="fa-solid fa-star text-accentGold text-[9px] md:text-[11px]"></i>
+                            <i class="fa-solid fa-star text-accentGold text-[9px] md:text-[11px]"></i>
+                        </div>
+                        <p class="text-[11px] md:text-sm text-gray-500 italic mb-6 md:mb-8 leading-relaxed flex-1 font-lora">"Alhamdulillah sangat nyaman dan tenang. Aturan syariahnya benar-benar dijaga, jadi merasa aman sebagai perantau. Desain kamarnya juga estetik dan rapi."</p>
+                        <div class="w-full pt-4 md:pt-6 border-t border-gray-50 mt-auto">
+                            <h3 class="font-serif font-bold text-brandDark text-sm md:text-lg">Aisyah F.</h3>
+                            <p class="text-[8px] md:text-[10px] font-sans text-gray-400 mt-1 md:mt-1.5 uppercase tracking-widest">Mahasiswi</p>
+                        </div>
+                    </div>
+
+                    <div class="testimoni-card w-full sm:w-[calc(50%-8px)] md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex-shrink-0 snap-center p-6 md:p-8 bg-white rounded-2xl md:rounded-3xl border border-gray-100 shadow-sm card-hover flex flex-col items-center text-center">
+                        <div class="w-10 h-10 md:w-12 md:h-12 bg-brandLight rounded-full mx-auto flex items-center justify-center mb-4 md:mb-5">
+                            <i data-lucide="quote" class="w-4 h-4 md:w-5 md:h-5 text-accentGold"></i>
+                        </div>
+                        <div class="flex gap-1 md:gap-1.5 mb-4 md:mb-5 justify-center">
+                            <i class="fa-solid fa-star text-accentGold text-[9px] md:text-[11px]"></i>
+                            <i class="fa-solid fa-star text-accentGold text-[9px] md:text-[11px]"></i>
+                            <i class="fa-solid fa-star text-accentGold text-[9px] md:text-[11px]"></i>
+                            <i class="fa-solid fa-star text-accentGold text-[9px] md:text-[11px]"></i>
+                            <i class="fa-solid fa-star text-accentGold text-[9px] md:text-[11px]"></i>
+                        </div>
+                        <p class="text-[11px] md:text-sm text-gray-500 italic mb-6 md:mb-8 leading-relaxed flex-1 font-lora">"Lingkungannya bersih dan terawat. Mengambil kamar premium sangat *worth it* karena ruangannya luas dan fasilitas kamar mandinya sangat memadai."</p>
+                        <div class="w-full pt-4 md:pt-6 border-t border-gray-50 mt-auto">
+                            <h3 class="font-serif font-bold text-brandDark text-sm md:text-lg">Fatimah Zahra</h3>
+                            <p class="text-[8px] md:text-[10px] font-sans text-gray-400 mt-1 md:mt-1.5 uppercase tracking-widest">Pekerja Swasta</p>
+                        </div>
+                    </div>
+
+                    <div class="testimoni-card w-full sm:w-[calc(50%-8px)] md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex-shrink-0 snap-center p-6 md:p-8 bg-white rounded-2xl md:rounded-3xl border border-gray-100 shadow-sm card-hover flex flex-col items-center text-center">
+                        <div class="w-10 h-10 md:w-12 md:h-12 bg-brandLight rounded-full mx-auto flex items-center justify-center mb-4 md:mb-5">
+                            <i data-lucide="quote" class="w-4 h-4 md:w-5 md:h-5 text-accentGold"></i>
+                        </div>
+                        <div class="flex gap-1 md:gap-1.5 mb-4 md:mb-5 justify-center">
+                            <i class="fa-solid fa-star text-accentGold text-[9px] md:text-[11px]"></i>
+                            <i class="fa-solid fa-star text-accentGold text-[9px] md:text-[11px]"></i>
+                            <i class="fa-solid fa-star text-accentGold text-[9px] md:text-[11px]"></i>
+                            <i class="fa-solid fa-star text-accentGold text-[9px] md:text-[11px]"></i>
+                            <i class="fa-solid fa-star-half-stroke text-accentGold text-[9px] md:text-[11px]"></i>
+                        </div>
+                        <p class="text-[11px] md:text-sm text-gray-500 italic mb-6 md:mb-8 leading-relaxed flex-1 font-lora">"Suka banget sama konsepnya yang simple tapi elegan. Proses penyewaannya mudah, dan pengelolanya sangat tanggap kalau ada kendala fasilitas."</p>
+                        <div class="w-full pt-4 md:pt-6 border-t border-gray-50 mt-auto">
+                            <h3 class="font-serif font-bold text-brandDark text-sm md:text-lg">Nisa</h3>
+                            <p class="text-[8px] md:text-[10px] font-sans text-gray-400 mt-1 md:mt-1.5 uppercase tracking-widest">Wirausaha</p>
+                        </div>
+                    </div>
+
+                    <div class="testimoni-card w-full sm:w-[calc(50%-8px)] md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex-shrink-0 snap-center p-6 md:p-8 bg-white rounded-2xl md:rounded-3xl border border-gray-100 shadow-sm card-hover flex flex-col items-center text-center">
+                        <div class="w-10 h-10 md:w-12 md:h-12 bg-brandLight rounded-full mx-auto flex items-center justify-center mb-4 md:mb-5">
+                            <i data-lucide="quote" class="w-4 h-4 md:w-5 md:h-5 text-accentGold"></i>
+                        </div>
+                        <div class="flex gap-1 md:gap-1.5 mb-4 md:mb-5 justify-center">
+                            <i class="fa-solid fa-star text-accentGold text-[9px] md:text-[11px]"></i>
+                            <i class="fa-solid fa-star text-accentGold text-[9px] md:text-[11px]"></i>
+                            <i class="fa-solid fa-star text-accentGold text-[9px] md:text-[11px]"></i>
+                            <i class="fa-solid fa-star text-accentGold text-[9px] md:text-[11px]"></i>
+                            <i class="fa-solid fa-star text-accentGold text-[9px] md:text-[11px]"></i>
+                        </div>
+                        <p class="text-[11px] md:text-sm text-gray-500 italic mb-6 md:mb-8 leading-relaxed flex-1 font-lora">"Fasilitasnya super lengkap dan privasi sangat terjaga. Akses ke pusat kota juga mudah. Sangat merekomendasikan Khai Living untuk tempat singgah."</p>
+                        <div class="w-full pt-4 md:pt-6 border-t border-gray-50 mt-auto">
+                            <h3 class="font-serif font-bold text-brandDark text-sm md:text-lg">Sarah A.</h3>
+                            <p class="text-[8px] md:text-[10px] font-sans text-gray-400 mt-1 md:mt-1.5 uppercase tracking-widest">Karyawan BUMN</p>
+                        </div>
+                    </div>
+
+                    <div class="testimoni-card w-full sm:w-[calc(50%-8px)] md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex-shrink-0 snap-center p-6 md:p-8 bg-white rounded-2xl md:rounded-3xl border border-gray-100 shadow-sm card-hover flex flex-col items-center text-center">
+                        <div class="w-10 h-10 md:w-12 md:h-12 bg-brandLight rounded-full mx-auto flex items-center justify-center mb-4 md:mb-5">
+                            <i data-lucide="quote" class="w-4 h-4 md:w-5 md:h-5 text-accentGold"></i>
+                        </div>
+                        <div class="flex gap-1 md:gap-1.5 mb-4 md:mb-5 justify-center">
+                            <i class="fa-solid fa-star text-accentGold text-[9px] md:text-[11px]"></i>
+                            <i class="fa-solid fa-star text-accentGold text-[9px] md:text-[11px]"></i>
+                            <i class="fa-solid fa-star text-accentGold text-[9px] md:text-[11px]"></i>
+                            <i class="fa-solid fa-star text-accentGold text-[9px] md:text-[11px]"></i>
+                            <i class="fa-solid fa-star text-accentGold text-[9px] md:text-[11px]"></i>
+                        </div>
+                        <p class="text-[11px] md:text-sm text-gray-500 italic mb-6 md:mb-8 leading-relaxed flex-1 font-lora">"Suasananya tenang banget buat kerja dari kost. Internetnya kencang dan area rooftop-nya jadi tempat favorit buat nongkrong dan cari inspirasi."</p>
+                        <div class="w-full pt-4 md:pt-6 border-t border-gray-50 mt-auto">
+                            <h3 class="font-serif font-bold text-brandDark text-sm md:text-lg">Rini P.</h3>
+                            <p class="text-[8px] md:text-[10px] font-sans text-gray-400 mt-1 md:mt-1.5 uppercase tracking-widest">Freelancer</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="kontak" class="py-16 md:py-24 bg-brandLight px-4 border-t border-brandDark/5 scroll-mt-14 md:scroll-mt-20">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12 md:mb-16 fade-in">
+                <p class="text-[8px] md:text-[10px] tracking-[0.3em] text-accentGold uppercase font-sans font-bold mb-3 md:mb-4">
+                    KONTAK
+                </p>
+                <h2 class="text-lg md:text-4xl lg:text-5xl font-serif font-bold text-brandDark mb-4 md:mb-6">Hubungi Kami</h2>
+                <div class="h-[2px] w-10 md:w-16 bg-gradient-to-r from-transparent via-accentGold/50 to-transparent mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center fade-in">
+                
+                <div class="space-y-6 md:space-y-10 font-sans pl-0 lg:pl-10">
+                    <a href="https://wa.me/6281111199706" target="_blank" class="flex items-center group transition">
+                        <div class="w-10 h-10 md:w-14 md:h-14 rounded-full bg-white flex items-center justify-center mr-4 md:mr-6 flex-shrink-0 group-hover:bg-accentGold group-hover:text-white transition-colors duration-300 shadow-sm border border-gray-100">
+                            <i class="fa-brands fa-whatsapp text-base md:text-xl text-accentGold group-hover:text-white transition-colors duration-300"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-400 text-[8px] md:text-[10px] uppercase tracking-widest mb-0.5 md:mb-1">WhatsApp</h4>
+                            <p class="text-[11px] md:text-sm font-semibold text-brandDark group-hover:text-accentGold transition-colors duration-300">+62 812-3456-7890</p>
+                        </div>
+                    </a>
+
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 md:w-14 md:h-14 rounded-full bg-white flex items-center justify-center mr-4 md:mr-6 flex-shrink-0 shadow-sm border border-gray-100">
+                            <i data-lucide="map-pin" class="w-4 h-4 md:w-5 md:h-5 text-accentGold"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-400 text-[8px] md:text-[10px] uppercase tracking-widest mb-0.5 md:mb-1">Alamat</h4>
+                            <p class="text-[11px] md:text-sm font-semibold text-brandDark leading-relaxed">Jalan Cijawura Hilir II, Buah Batu, Bandung</p>
+                        </div>
+                    </div>
+
+                    <a href="https://instagram.com/khai.living" target="_blank" class="flex items-center group transition">
+                        <div class="w-10 h-10 md:w-14 md:h-14 rounded-full bg-white flex items-center justify-center mr-4 md:mr-6 flex-shrink-0 group-hover:bg-accentGold group-hover:text-white transition-colors duration-300 shadow-sm border border-gray-100">
+                            <i class="fa-brands fa-instagram text-base md:text-xl text-accentGold group-hover:text-white transition-colors duration-300"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-400 text-[8px] md:text-[10px] uppercase tracking-widest mb-0.5 md:mb-1">Instagram</h4>
+                            <p class="text-[11px] md:text-sm font-semibold text-accentGold group-hover:text-brandDark transition-colors duration-300">@khai.living</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="bg-mapCard rounded-2xl md:rounded-[32px] p-2 flex flex-col items-center justify-center min-h-[250px] md:min-h-[350px] shadow-sm border border-mapCard relative overflow-hidden group">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15841.686480185273!2d107.6590365!3d-6.9594894!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e969e5582913%3A0x40e75e88c0f04a79!2sKhai%20Living%20Syariah%20-%20Kosan%20Premium%20Bandung!5e0!3m2!1sen!2sid!4v1775915956087!5m2!1sen!2sid" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0; position: absolute; top:0; left:0; border-radius: 1.5rem;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-brandDark py-10 md:py-16 text-center px-4">
+        <div class="max-w-6xl mx-auto flex flex-col items-center">
+            <img src="/Assets/logo-khai-living-1.png" alt="Khai Living Syariah" class="h-[50px] md:h-[60px] w-auto object-contain mb-5 md:mb-8 opacity-90 hover:opacity-100 transition">
+            <p class="text-[9px] md:text-xs font-sans text-brandLight/40 tracking-wide">© 2026 Khai Living Syariah. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="JS/script.js"></script>
+
+</body>
+</html>
